@@ -1,0 +1,25 @@
+# Build outputs
+Debug/
+Release/
+build/
+*.o
+*.obj
+*.elf
+*.axf
+*.hex
+*.bin
+*.map
+
+# IDE and OS files
+.vscode/
+.idea/
+*.uvguix.*
+*.bak
+*.tmp
+Thumbs.db
+Desktop.ini
+
+# Local data and secrets
+*.log
+*.csv
+.env
