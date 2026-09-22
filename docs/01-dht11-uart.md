@@ -16,7 +16,7 @@
 | --- | --- |
 | 开发板上的 STM32 完整型号 | STM32F103C8T6 |
 | 使用的开发环境及版本（Keil / STM32CubeIDE 等） | Keil5，VScode，STM32CubeMX |
-| 下载器或板载调试器 | 待填写 |
+| 下载器或板载调试器 | ST-Link |
 | DHT11 模块 VCC、DATA、GND 的丝印 | VCC,DAT,GND |
 | DHT11 模块允许的供电和 DATA 高电平 | 3.3-5V,3.3V|
 | DATA 所接 STM32 GPIO | PB1 |
