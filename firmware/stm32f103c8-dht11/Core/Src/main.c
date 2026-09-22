@@ -89,7 +89,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_GPIO_WritePin(DHT11_DAT_Port, DHT11_DAT_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(DHT11_DAT_GPIO_Port, DHT11_DAT_Pin, GPIO_PIN_SET);
   HAL_UART_Transmit(&huart1, (uint8_t *)"BOOT OK\r\n", 9, HAL_MAX_DELAY);
   /* USER CODE END 2 */
 
