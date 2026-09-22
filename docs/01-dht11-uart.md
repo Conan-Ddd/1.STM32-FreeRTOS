@@ -17,11 +17,11 @@
 | 开发板上的 STM32 完整型号 | STM32F103C8T6 |
 | 使用的开发环境及版本（Keil / STM32CubeIDE 等） | Keil5，VScode，STM32CubeMX |
 | 下载器或板载调试器 | 待填写 |
-| DHT11 模块 VCC、DATA、GND 的丝印 | VCC,DO,GND |
-| DHT11 模块允许的供电和 DATA 高电平 | 3.3-5V |
-| DATA 所接 STM32 GPIO | 待填写 |
-| 串口 TX/RX 所接引脚及波特率 | 待填写 |
-| 模块是否已有 DATA 上拉电阻 | 待填写 |
+| DHT11 模块 VCC、DATA、GND 的丝印 | VCC,DAT,GND |
+| DHT11 模块允许的供电和 DATA 高电平 | 3.3-5V,3.3V|
+| DATA 所接 STM32 GPIO | PB1 |
+| 串口 TX/RX 所接引脚及波特率 | PA9,PA10,115200 |
+| 模块是否已有 DATA 上拉电阻 | 有 |
 
 DHT11 芯片资料给出的供电范围为 3.5–5.5 V、采样间隔大于 2 秒，DATA 为单总线信号。不同商家的“三针模块”可能带稳压、上拉或电平转换，必须查看手中模块的标注或资料。**如果 DATA 被上拉到 5 V，不要在未确认该 STM32 引脚耐压/电平转换方案前直接接入 GPIO。**开发板与传感器必须共地。
 
