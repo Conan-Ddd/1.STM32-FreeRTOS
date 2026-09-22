@@ -14,11 +14,11 @@
 
 | 项目 | 你的实际情况 |
 | --- | --- |
-| 开发板上的 STM32 完整型号 | 待填写 |
-| 使用的开发环境及版本（Keil / STM32CubeIDE 等） | 待填写 |
+| 开发板上的 STM32 完整型号 | STM32F103C8T6 |
+| 使用的开发环境及版本（Keil / STM32CubeIDE 等） | Keil5，VScode，STM32CubeMX |
 | 下载器或板载调试器 | 待填写 |
-| DHT11 模块 VCC、DATA、GND 的丝印 | 待填写 |
-| DHT11 模块允许的供电和 DATA 高电平 | 待填写 |
+| DHT11 模块 VCC、DATA、GND 的丝印 | VCC,DO,GND |
+| DHT11 模块允许的供电和 DATA 高电平 | 3.3-5V |
 | DATA 所接 STM32 GPIO | 待填写 |
 | 串口 TX/RX 所接引脚及波特率 | 待填写 |
 | 模块是否已有 DATA 上拉电阻 | 待填写 |
