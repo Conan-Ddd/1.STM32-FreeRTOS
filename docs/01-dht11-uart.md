@@ -55,6 +55,52 @@ DHT11 芯片资料给出的供电范围为 3.5–5.5 V、采样间隔大于 2 �
 
 **验收：**成功读取合理的温湿度；拔掉 DATA 后程序仍持续运行，并报告失败。
 
+#### 驱动细化步骤 2：等待指定电平并设置超时
+
+在 `dht11.c` 中添加等待函数。它反复读取 PB1，直到读到期望电平；如果超过设定时间仍未等到，就返回超时，避免传感器未响应时程序卡死。
+
+`dht11.c` 需要包含工程的 `main.h`（其中定义了 `DHT11_DAT_GPIO_Port` 和 `DHT11_DAT_Pin`）：
+
+```c
+#include "main.h"
+#include "dht11.h"
+
+static uint8_t DHT11_Wait_Level(GPIO_PinState level, uint32_t timeout_us)
+{
+    uint32_t start = DWT->CYCCNT;
+    uint32_t timeout_ticks =
+        (SystemCoreClock / 1000000U) * timeout_us;
+
+    while (HAL_GPIO_ReadPin(DHT11_DAT_GPIO_Port,
+                            DHT11_DAT_Pin) != level)
+    {
+        if ((uint32_t)(DWT->CYCCNT - start) >= timeout_ticks)
+        {
+            return 0U;  /* 超时 */
+        }
+    }
+
+    return 1U;  /* 等到了目标电平 */
+}
+```
+
+- `level` 是目标电平：`GPIO_PIN_SET` 表示高，`GPIO_PIN_RESET` 表示低。
+- `timeout_us` 的单位是微秒；例如 `120U` 表示最多等 120 µs。
+- 返回 `1U` 表示成功，`0U` 表示超时。返回值表示等待是否成功，不是读取到的数据位。
+- 该函数只在 `dht11.c` 内部使用，所以声明为 `static`，**不要把它的声明放进 `dht11.h`**。
+- 调用前必须已在系统时钟配置后初始化 DWT 计数器；PB1 必须处于释放状态，并有合适的数据线上拉。
+
+示例：等待传感器把 PB1 拉低作为应答，最多等待 120 µs：
+
+```c
+if (DHT11_Wait_Level(GPIO_PIN_RESET, 120U) == 0U)
+{
+    /* 没等到应答：返回超时状态，继续主循环 */
+}
+```
+
+此函数只负责“等待某个电平”，不负责发送起始信号或读取完整数据。随后读取每一位时，也要检查每次等待是否超时。
+
 ### 3. 串口输出固定格式
 
 建议每隔 **至少 2 秒**尝试读取一次；为了调试稳定，可先设为 3 秒。成功示例：
